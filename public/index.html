@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zumi Travels · Kingdom of Bhutan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#home" class="nav-logo">ZUMI</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#dzongkhags">Dzongkhags</a></li>
+      <li><a href="#experiences">Experiences</a></li>
+      <li><a href="#enquire">Enquire</a></li>
+    </ul>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero" id="home">
+  <div class="hero-img" style="background-image:url('/images/hero.jpg')"></div>
+  <div class="hero-veil"></div>
+  <div class="hero-content">
+    <span class="eyebrow">Kingdom of Bhutan</span>
+    <h1>In the Wilderness<br/><em>of Nature</em></h1>
+    <p class="hero-desc">A kingdom of dzongs, prayer flags and untouched valleys,<br class="br-desktop"/>opened gently, by invitation.</p>
+    <a href="#dzongkhags" class="hero-cta">Begin the Story</a>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="scroll-bar"></div>
+  </div>
+</section>
+
+<!-- ═══ DZONGKHAGS ═══ -->
+<section class="section" id="dzongkhags">
+  <div class="container">
+    <div class="section-intro reveal">
+      <span class="label">Region by Region</span>
+      <h2>Explore Bhutan</h2>
+      <p>Each dzongkhag is a full story: a landmark, a valley, a place to rest, a way to feel local life.</p>
+    </div>
+
+    <div class="dzong-grid">
+      <div class="dzong-card dzong-card--featured reveal" data-dzong="paro">
+        <div class="dzong-img" style="background-image:url('/images/paro.jpg')"></div>
+        <div class="dzong-overlay">
+          <div>
+            <span class="dzong-tag">Western Bhutan</span>
+            <h3>Paro</h3>
+            <p>Tiger's Nest, terraced rice valleys &amp; the only international gateway.</p>
+          </div>
+          <span class="dzong-link">Read the story &#8594;</span>
+        </div>
+      </div>
+
+      <div class="dzong-card reveal" data-dzong="thimphu">
+        <div class="dzong-img" style="background-image:url('/images/thimphu.jpg')"></div>
+        <div class="dzong-overlay">
+          <div>
+            <span class="dzong-tag">The Capital</span>
+            <h3>Thimphu</h3>
+            <p>Buddha Dordenma, weekend market, modern dzong life.</p>
+          </div>
+          <span class="dzong-link">Read the story &#8594;</span>
+        </div>
+      </div>
+
+      <div class="dzong-card reveal" data-dzong="punakha">
+        <div class="dzong-img" style="background-image:url('/images/punakha.jpg')"></div>
+        <div class="dzong-overlay">
+          <div>
+            <span class="dzong-tag">Winter Capital</span>
+            <h3>Punakha</h3>
+            <p>The dzong at the river confluence, the suspension bridge.</p>
+          </div>
+          <span class="dzong-link">Read the story &#8594;</span>
+        </div>
+      </div>
+
+      <div class="dzong-card reveal" data-dzong="bumthang">
+        <div class="dzong-img" style="background-image:url('/images/bumthang.jpg')"></div>
+        <div class="dzong-overlay">
+          <div>
+            <span class="dzong-tag">Spiritual Heartland</span>
+            <h3>Bumthang</h3>
+            <p>Ancient temples and high alpine valleys unchanged for centuries.</p>
+          </div>
+          <span class="dzong-link">Read the story &#8594;</span>
+        </div>
+      </div>
+
+      <div class="dzong-card reveal" data-dzong="haa">
+        <div class="dzong-img" style="background-image:url('/images/haa.jpg')"></div>
+        <div class="dzong-overlay">
+          <div>
+            <span class="dzong-tag">Far West</span>
+            <h3>Haa</h3>
+            <p>The remote, rarely-visited valley for the truly curious traveller.</p>
+          </div>
+          <span class="dzong-link">Read the story &#8594;</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ DZONGKHAG DETAIL OVERLAY ═══ -->
+<div class="detail-backdrop" id="detailBackdrop"></div>
+<div class="detail-overlay" id="detailOverlay" aria-hidden="true">
+  <button class="detail-close" id="detailClose">&#10005; Close</button>
+  <div class="detail-scroll" id="detailScroll">
+
+    <div class="detail-hero">
+      <div class="detail-hero-img" id="detailHeroImg"></div>
+      <div class="detail-hero-veil"></div>
+      <div class="detail-hero-text">
+        <span class="eyebrow" id="detailTag"></span>
+        <h2 id="detailName"></h2>
+        <p id="detailTagline"></p>
+      </div>
+    </div>
+
+    <div class="detail-body">
+      <div class="container-narrow">
+        <div class="detail-gallery" id="detailGallery"></div>
+
+        <div class="detail-history">
+          <span class="label">A Short History</span>
+          <p id="detailHistory"></p>
+        </div>
+
+        <div class="detail-moments">
+          <span class="label">Moments, Not a Checklist</span>
+          <div class="moments-grid" id="detailMoments"></div>
+        </div>
+
+        <div class="detail-cta">
+          <p>Ready to explore <span id="detailCtaName"></span>?</p>
+          <button class="btn-gold" onclick="enquireAbout()">Start Planning &#8594;</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ EXPERIENCES ═══ -->
+<section class="section section--forest" id="experiences">
+  <div class="container">
+    <div class="section-intro reveal">
+      <span class="label label--light">Things to Do</span>
+      <h2 class="light">Moments, Not a Checklist</h2>
+      <p class="light muted">Bhutan is felt before it is understood. Here are six ways to begin.</p>
+    </div>
+    <div class="exp-grid" id="expGrid"></div>
+  </div>
+</section>
+
+<!-- ═══ ENQUIRE ═══ -->
+<section class="section section--stone" id="enquire">
+  <div class="container">
+    <div class="enquire-grid">
+
+      <div class="enquire-form-col reveal">
+        <span class="label">Ready to Begin</span>
+        <h2>Start Planning</h2>
+        <p>No quote builders or instant prices. Just a conversation to begin your journey. We will get back to you within 24&nbsp;hours.</p>
+        <form id="enquireForm" class="zumi-form" novalidate>
+          <div class="field-row">
+            <div class="field">
+              <input type="text" name="name" placeholder="Name *" required />
+            </div>
+            <div class="field">
+              <input type="email" name="email" placeholder="Email *" required />
+            </div>
+          </div>
+          <div class="field">
+            <input type="text" name="travel_dates" placeholder="Travel dates (rough is fine)" />
+          </div>
+          <div class="field">
+            <textarea name="message" rows="5" placeholder="Tell us about the trip you're imagining…" required></textarea>
+          </div>
+          <button type="submit" class="btn-maroon" id="enquireBtn">Send Enquiry</button>
+          <div class="form-msg" id="enquireMsg"></div>
+        </form>
+      </div>
+
+      <div class="newsletter-col reveal">
+        <div class="newsletter-box">
+          <span class="label label--gold">Stay Connected</span>
+          <h3>Join the Dispatch</h3>
+          <p>Occasional notes on Bhutan: festival dates, new lodges, and stories worth your time. For agents and future travellers alike.</p>
+          <form id="newsletterForm" class="zumi-form" novalidate>
+            <div class="field">
+              <input type="text" name="name" placeholder="Your name (optional)" />
+            </div>
+            <div class="field">
+              <input type="email" name="email" placeholder="Email address *" required />
+            </div>
+            <button type="submit" class="btn-gold" id="newsletterBtn">Subscribe to the Dispatch</button>
+            <div class="form-msg" id="newsletterMsg"></div>
+          </form>
+          <p class="small-note">No spam. Unsubscribe at any time.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="footer-logo">ZUMI</span>
+        <p>Built to inspire the journey, not run it.</p>
+      </div>
+      <nav class="footer-nav">
+        <a href="#dzongkhags">Dzongkhags</a>
+        <a href="#experiences">Experiences</a>
+        <a href="#enquire">Enquire</a>
+        <a href="/admin">Admin</a>
+      </nav>
+      <p class="footer-copy">&copy; 2026 Zumi Travels &middot; Kingdom of Bhutan</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══ WHATSAPP FLOAT ═══ -->
+<a class="wa-float" href="#" id="waFloat" target="_blank" rel="noopener" aria-label="Chat on WhatsApp" style="display:none">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+  <span>Chat with us</span>
+</a>
+
+<script src="script.js"></script>
+</body>
+</html>

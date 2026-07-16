@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ZUMI Travels · Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+
+<!-- ═══════════════ LOGIN PAGE ═══════════════ -->
+<div id="loginPage" class="login-page">
+  <div class="login-card">
+    <div class="login-logo">ZUMI</div>
+    <h2>Admin Portal</h2>
+    <p class="login-sub">Sign in to manage bookings and inquiries</p>
+    <form id="loginForm">
+      <div class="field">
+        <label>Email Address</label>
+        <input type="email" id="loginEmail" placeholder="admin@zumitravels.bt" required />
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <input type="password" id="loginPassword" placeholder="••••••••" required />
+      </div>
+      <div id="loginError" class="alert alert-error" style="display:none"></div>
+      <button type="submit" class="btn btn-primary btn-full" id="loginBtn">Sign In</button>
+    </form>
+  </div>
+</div>
+
+<!-- ═══════════════ ADMIN APP ═══════════════ -->
+<div id="adminApp" class="admin-app" style="display:none">
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">ZUMI</div>
+    <nav class="sidebar-nav">
+      <a href="#" class="nav-item active" data-tab="dashboard">
+        <span class="nav-icon">&#9632;</span> Dashboard
+      </a>
+      <a href="#" class="nav-item" data-tab="inquiries">
+        <span class="nav-icon">&#9993;</span> Inquiries
+        <span class="badge badge-info" id="unreadBadge" style="display:none"></span>
+      </a>
+      <a href="#" class="nav-item" data-tab="subscribers">
+        <span class="nav-icon">&#128140;</span> Subscribers
+        <span class="badge badge-gold" id="subsBadge" style="display:none"></span>
+      </a>
+      <a href="#" class="nav-item" data-tab="admins">
+        <span class="nav-icon">&#128100;</span> Team
+      </a>
+      <a href="#" class="nav-item" data-tab="settings">
+        <span class="nav-icon">&#9881;</span> Settings
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="admin-avatar" id="adminAvatarSidebar">A</div>
+      <div class="admin-info">
+        <strong id="adminNameSidebar">Admin</strong>
+      </div>
+      <button class="logout-btn" id="logoutBtn" title="Logout">&#8594;</button>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main-content">
+
+    <!-- Header -->
+    <header class="top-bar">
+      <button class="hamburger-admin" id="sidebarToggle">&#9776;</button>
+      <h1 class="page-title" id="pageTitle">Dashboard</h1>
+      <div class="top-right">
+        <span id="adminNameTop"></span>
+      </div>
+    </header>
+
+    <!-- ── DASHBOARD TAB ── -->
+    <section class="tab-content active" id="tab-dashboard">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon stat-forest">&#9993;</div>
+          <div class="stat-info">
+            <span class="stat-value" id="st-inquiries">—</span>
+            <span class="stat-label">Total Inquiries</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon stat-red">&#33;</div>
+          <div class="stat-info">
+            <span class="stat-value" id="st-unread">—</span>
+            <span class="stat-label">Unread</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon stat-gold">&#128140;</div>
+          <div class="stat-info">
+            <span class="stat-value" id="st-subscribers">—</span>
+            <span class="stat-label">Subscribers</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mt-6">
+        <div class="card-header">
+          <h3>Recent Inquiries</h3>
+          <button class="btn btn-sm btn-outline" onclick="switchTab('inquiries')">View All</button>
+        </div>
+        <div id="dashRecentInquiries" class="table-wrap">
+          <p class="empty-msg">Loading…</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── INQUIRIES TAB ── -->
+    <section class="tab-content" id="tab-inquiries">
+      <div class="toolbar">
+        <div class="toolbar-left">
+          <input type="text" id="inquirySearch" placeholder="Search name, email, subject…" class="search-input" />
+          <select id="inquiryReadFilter" class="filter-select">
+            <option value="">All</option>
+            <option value="unread">Unread</option>
+            <option value="read">Read</option>
+          </select>
+        </div>
+        <button class="btn btn-sm btn-outline" onclick="loadInquiries()">&#8635; Refresh</button>
+      </div>
+      <div class="card">
+        <div id="inquiriesTable" class="table-wrap">
+          <p class="empty-msg">Loading…</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SUBSCRIBERS TAB ── -->
+    <section class="tab-content" id="tab-subscribers">
+      <div class="toolbar">
+        <div class="toolbar-left">
+          <input type="text" id="subsSearch" placeholder="Search email or name…" class="search-input" />
+          <span class="toolbar-note" id="subsCount"></span>
+        </div>
+        <div style="display:flex;gap:.5rem">
+          <button class="btn btn-sm btn-primary" onclick="openDispatchModal()">&#9993; Send Dispatch</button>
+          <button class="btn btn-sm btn-outline" onclick="loadSubscribers()">&#8635; Refresh</button>
+        </div>
+      </div>
+      <div class="card">
+        <div id="subscribersTable" class="table-wrap">
+          <p class="empty-msg">Loading…</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── TEAM TAB ── -->
+    <section class="tab-content" id="tab-admins">
+      <div class="toolbar">
+        <div class="toolbar-left">
+          <span class="toolbar-note">Manage team members who can access this dashboard</span>
+        </div>
+        <button class="btn btn-sm btn-primary" onclick="openAddAdminModal()">&#43; Add Member</button>
+      </div>
+      <div class="card">
+        <div id="adminsTable" class="table-wrap">
+          <p class="empty-msg">Loading…</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SETTINGS TAB ── -->
+    <section class="tab-content" id="tab-settings">
+      <div class="settings-grid">
+        <div class="card settings-card">
+          <div class="card-header"><h3>Change Password</h3></div>
+          <form id="changePasswordForm" class="settings-form">
+            <div class="field">
+              <label>Current Password</label>
+              <input type="password" id="currentPassword" placeholder="••••••••" required />
+            </div>
+            <div class="field">
+              <label>New Password</label>
+              <input type="password" id="newPassword" placeholder="Min. 6 characters" required minlength="6" />
+            </div>
+            <div class="field">
+              <label>Confirm New Password</label>
+              <input type="password" id="confirmPassword" placeholder="Repeat new password" required />
+            </div>
+            <div id="pwError" class="alert alert-error" style="display:none"></div>
+            <div id="pwSuccess" class="alert alert-success" style="display:none"></div>
+            <button type="submit" class="btn btn-primary">Update Password</button>
+          </form>
+        </div>
+
+        <div class="card settings-card">
+          <div class="card-header"><h3>Account Info</h3></div>
+          <div class="settings-info">
+            <div class="info-row"><span>Name</span><strong id="settingsName">—</strong></div>
+            <div class="info-row"><span>Email</span><strong id="settingsEmail">—</strong></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- ═══════════════ MODALS ═══════════════ -->
+
+
+<div class="modal-overlay" id="inquiryDetailOverlay" onclick="closeModal('inquiryDetailOverlay')"></div>
+<div class="modal" id="inquiryDetailModal">
+  <div class="modal-header">
+    <h3>Inquiry Details</h3>
+    <button class="modal-close" onclick="closeModal('inquiryDetailOverlay')">&#10005;</button>
+  </div>
+  <div id="inquiryDetailBody" class="modal-body"></div>
+  <div class="modal-footer">
+    <button class="btn btn-primary" onclick="markInquiryRead()" id="markReadBtn">Mark as Read</button>
+    <button class="btn btn-outline" onclick="closeModal('inquiryDetailOverlay')">Close</button>
+  </div>
+</div>
+
+<!-- Dispatch modal -->
+<div class="modal-overlay" id="dispatchOverlay" onclick="closeModal('dispatchOverlay')"></div>
+<div class="modal" id="dispatchModal">
+  <div class="modal-header">
+    <h3>Send the Dispatch</h3>
+    <button class="modal-close" onclick="closeModal('dispatchOverlay')">&#10005;</button>
+  </div>
+  <div class="modal-body">
+    <div id="dispatchResult" class="alert" style="display:none"></div>
+    <div class="field">
+      <label>Subject *</label>
+      <input type="text" id="dispatchSubject" placeholder="e.g. Festival season opens, Bhutan 2026" />
+    </div>
+    <div class="field">
+      <label>Message *</label>
+      <textarea id="dispatchMessage" rows="8" placeholder="Write your dispatch here. Plain text; line breaks are preserved." style="resize:vertical;min-height:160px"></textarea>
+    </div>
+    <p id="dispatchSubsNote" style="font-size:.8rem;color:var(--text-muted);margin-top:.5rem"></p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary" onclick="sendDispatch()" id="dispatchSendBtn">Send to All Subscribers</button>
+    <button class="btn btn-outline" onclick="closeModal('dispatchOverlay')">Cancel</button>
+  </div>
+</div>
+
+<div class="modal-overlay" id="addAdminOverlay" onclick="closeModal('addAdminOverlay')"></div>
+<div class="modal" id="addAdminModal">
+  <div class="modal-header">
+    <h3 id="addAdminTitle">Add Team Member</h3>
+    <button class="modal-close" onclick="closeModal('addAdminOverlay')">&#10005;</button>
+  </div>
+  <div class="modal-body">
+    <form id="addAdminForm">
+      <input type="hidden" id="editAdminId" />
+      <div class="field">
+        <label>Full Name *</label>
+        <input type="text" id="adminName" placeholder="Name" required />
+      </div>
+      <div class="field">
+        <label>Email Address *</label>
+        <input type="email" id="adminEmail" placeholder="email@example.com" required />
+      </div>
+      <div class="field">
+        <label>Password <span id="pwHint" style="font-weight:400;color:#64748b">(required)</span></label>
+        <input type="password" id="adminPassword" placeholder="Min. 6 characters" minlength="6" />
+      </div>
+      <div id="addAdminError" class="alert alert-error" style="display:none"></div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary" onclick="saveAdmin()">Save</button>
+    <button class="btn btn-outline" onclick="closeModal('addAdminOverlay')">Cancel</button>
+  </div>
+</div>
+
+<div class="modal-overlay" id="confirmOverlay"></div>
+<div class="modal modal-sm" id="confirmModal">
+  <div class="modal-header">
+    <h3>Confirm Action</h3>
+  </div>
+  <div class="modal-body">
+    <p id="confirmMsg">Are you sure?</p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-danger" id="confirmYes">Confirm</button>
+    <button class="btn btn-outline" onclick="closeConfirm()">Cancel</button>
+  </div>
+</div>
+
+<script src="admin.js"></script>
+</body>
+</html>
