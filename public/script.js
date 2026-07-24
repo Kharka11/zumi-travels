@@ -18,6 +18,9 @@ const DZONGKHAGS = {
       { img: '/images/paro-m1.jpg', title: "Tiger's Nest Trek", desc: "Climb 900m through blue pine forest to the sacred monastery. Four hours up, half that down. Worth every step." },
       { img: '/images/paro-m2.jpg', title: 'Paro Rinpung Dzong', desc: "The fortress-monastery guards the valley entrance. Visit at dusk when monks return from evening prayer." },
       { img: '/images/paro-m3.jpg', title: 'Paddy Field Walks', desc: "In autumn, the rice turns gold. Walk the bunds between fields as farmers harvest by hand." },
+      { img: '/images/paro-g1.jpg', title: 'Ta Dzong — National Museum', desc: "The old watchtower above Rinpung Dzong now holds Bhutan's finest collection of thangkas, armour, and natural history. Climb the spiral ramps. Take your time." },
+      { img: '/images/paro-g2.jpg', title: 'The Chain of Monasteries', desc: "A half-day walk links Kyichu Lhakhang — one of Bhutan's oldest temples, built in 659 AD — through Dungtse Lhakhang to the valley's quieter shrines. Bring an offering. Leave your phone in your pocket." },
+      { img: '/images/haa-m3.jpg', title: 'Jomolhari Base Camp Trek', desc: "Bhutan's most dramatic high-altitude route. Nine days into the Jigme Dorji wilderness, beneath a 7,326m peak sacred to both Bhutan and Tibet. Snow, yaks, silence, and a sky you won't forget." },
     ]
   },
   thimphu: {
@@ -34,6 +37,9 @@ const DZONGKHAGS = {
       { img: '/images/thimphu-m1.jpg', title: 'Buddha Dordenma at Sunrise', desc: "Arrive before the pilgrims. The giant bronze figure catches the first light as mist rises from the valley below." },
       { img: '/images/thimphu-m2.jpg', title: "Weekend Farmers' Market", desc: "Every weekend, farmers from surrounding valleys bring produce, dried yak cheese, and homemade ara." },
       { img: '/images/thimphu-m3.jpg', title: 'Tashichho Dzong at Dusk', desc: "The government fortress glows gold at dusk. Walk the whitewashed corridors as the day cools." },
+      { img: '/images/exp-6.jpg', title: 'Dochula Pass', desc: "108 white chortens at 3,100m, with the entire eastern Himalayan range behind them. On a clear morning, nothing prepares you for it." },
+      { img: '/images/thimphu-g2.jpg', title: 'Simtokha Dzong', desc: "Bhutan's oldest fortress, built in 1629 on a ridge that once divided three kingdoms. Most guests drive past it. Don't." },
+      { img: '/images/thimphu-g1.jpg', title: 'National Museum, Thimphu', desc: "Two quiet hours that make everything else on your journey make sense. Start here." },
     ]
   },
   punakha: {
@@ -50,6 +56,8 @@ const DZONGKHAGS = {
       { img: '/images/punakha-m1.jpg', title: 'Sunrise in the Dzong Courtyard', desc: "Before the crowds arrive. Just monks, incense smoke, and the sound of two rivers meeting below." },
       { img: '/images/punakha-m2.jpg', title: 'Crossing the Suspension Bridge', desc: "Prayer flags overhead, the Mo Chhu 50m below. The longest suspension bridge in Bhutan." },
       { img: '/images/punakha-m3.jpg', title: 'Hot Stone Bath by the River', desc: "River-warmed stones and artemisia leaves. A traditional Bhutanese remedy, taken valley-side after a long day." },
+      { img: '/images/punakha-g2.jpg', title: 'Phobjikha Valley', desc: "Every October, black-necked cranes arrive from the Tibetan plateau to winter here. A wide, silent glacial bowl that feels entirely untouched." },
+      { img: '/images/punakha-g3.jpg', title: 'Khamsum Yulley Namgyal Chorten', desc: "A three-storey chorten on a hilltop above the rice fields, reached by a 45-minute walk through farmland. The view from the top earns every step." },
     ]
   },
   bumthang: {
@@ -191,11 +199,37 @@ function openDetail(key) {
   document.getElementById('detailHistory').textContent = d.history;
   document.getElementById('detailCtaName').textContent = d.name;
 
-  // Gallery
+  // Gallery slideshow
   const gallery = document.getElementById('detailGallery');
-  gallery.innerHTML = d.gallery.map(g =>
-    `<div class="detail-gallery-img" style="background-image:url('${g.img}')" title="${g.caption}"></div>`
-  ).join('');
+  gallery.innerHTML = `
+    ${d.gallery.map((g, i) => `<div class="gallery-slide${i === 0 ? ' active' : ''}" style="background-image:url('${g.img}')"></div>`).join('')}
+    <div class="gallery-caption">${d.gallery[0].caption}</div>
+    <div class="gallery-arrows">
+      <button class="gallery-arrow" id="galPrev">&#8592;</button>
+      <button class="gallery-arrow" id="galNext">&#8594;</button>
+    </div>
+    <div class="gallery-dots">
+      ${d.gallery.map((_, i) => `<button class="gallery-dot${i === 0 ? ' active' : ''}"></button>`).join('')}
+    </div>`;
+
+  if (window._galleryTimer) clearInterval(window._galleryTimer);
+  let galIdx = 0;
+  const slides   = gallery.querySelectorAll('.gallery-slide');
+  const dots     = gallery.querySelectorAll('.gallery-dot');
+  const caption  = gallery.querySelector('.gallery-caption');
+  const goTo = n => {
+    slides[galIdx].classList.remove('active');
+    dots[galIdx].classList.remove('active');
+    galIdx = (n + slides.length) % slides.length;
+    slides[galIdx].classList.add('active');
+    dots[galIdx].classList.add('active');
+    caption.textContent = d.gallery[galIdx].caption;
+  };
+  dots.forEach((dot, i) => dot.addEventListener('click', () => { goTo(i); resetTimer(); }));
+  gallery.querySelector('#galPrev').addEventListener('click', () => { goTo(galIdx - 1); resetTimer(); });
+  gallery.querySelector('#galNext').addEventListener('click', () => { goTo(galIdx + 1); resetTimer(); });
+  const resetTimer = () => { clearInterval(window._galleryTimer); window._galleryTimer = setInterval(() => goTo(galIdx + 1), 5000); };
+  window._galleryTimer = setInterval(() => goTo(galIdx + 1), 5000);
 
   // Moments
   const momentsEl = document.getElementById('detailMoments');
@@ -217,6 +251,7 @@ function openDetail(key) {
 }
 
 function closeDetail() {
+  if (window._galleryTimer) { clearInterval(window._galleryTimer); window._galleryTimer = null; }
   overlay.classList.remove('slide-in');
   setTimeout(() => {
     overlay.classList.remove('open');
