@@ -20,7 +20,7 @@ const DZONGKHAGS = {
       { img: '/images/paro-m3.jpg', title: 'Paddy Field Walks', desc: "In autumn, the rice turns gold. Walk the bunds between fields as farmers harvest by hand." },
       { img: '/images/paro-g1.jpg', title: 'Ta Dzong — National Museum', desc: "The old watchtower above Rinpung Dzong now holds Bhutan's finest collection of thangkas, armour, and natural history. Climb the spiral ramps. Take your time." },
       { img: '/images/paro-g2.jpg', title: 'The Chain of Monasteries', desc: "A half-day walk links Kyichu Lhakhang — one of Bhutan's oldest temples, built in 659 AD — through Dungtse Lhakhang to the valley's quieter shrines. Bring an offering. Leave your phone in your pocket." },
-      { img: '/images/haa-m3.jpg', title: 'Jomolhari Base Camp Trek', desc: "Bhutan's most dramatic high-altitude route. Nine days into the Jigme Dorji wilderness, beneath a 7,326m peak sacred to both Bhutan and Tibet. Snow, yaks, silence, and a sky you won't forget." },
+      { img: '/images/jomolhari.jpg', title: 'Jomolhari Base Camp Trek', desc: "Bhutan's most dramatic high-altitude route. Nine days into the Jigme Dorji wilderness, beneath a 7,326m peak sacred to both Bhutan and Tibet. Snow, yaks, silence, and a sky you won't forget." },
     ]
   },
   thimphu: {
@@ -37,7 +37,7 @@ const DZONGKHAGS = {
       { img: '/images/thimphu-m1.jpg', title: 'Buddha Dordenma at Sunrise', desc: "Arrive before the pilgrims. The giant bronze figure catches the first light as mist rises from the valley below." },
       { img: '/images/thimphu-m2.jpg', title: "Weekend Farmers' Market", desc: "Every weekend, farmers from surrounding valleys bring produce, dried yak cheese, and homemade ara." },
       { img: '/images/thimphu-m3.jpg', title: 'Tashichho Dzong at Dusk', desc: "The government fortress glows gold at dusk. Walk the whitewashed corridors as the day cools." },
-      { img: '/images/exp-6.jpg', title: 'Dochula Pass', desc: "108 white chortens at 3,100m, with the entire eastern Himalayan range behind them. On a clear morning, nothing prepares you for it." },
+      { img: '/images/dochula-pass.jpg', title: 'Dochula Pass', desc: "108 white chortens at 3,100m, with the entire eastern Himalayan range behind them. On a clear morning, nothing prepares you for it." },
       { img: '/images/thimphu-g2.jpg', title: 'Simtokha Dzong', desc: "Bhutan's oldest fortress, built in 1629 on a ridge that once divided three kingdoms. Most guests drive past it. Don't." },
       { img: '/images/thimphu-g1.jpg', title: 'National Museum, Thimphu', desc: "Two quiet hours that make everything else on your journey make sense. Start here." },
     ]

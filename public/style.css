@@ -241,8 +241,9 @@ p.muted           { color: rgba(255,255,255,.65); }
   min-height: 600px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   overflow: hidden;
+  padding-left: clamp(1.5rem, 8vw, 8rem);
 }
 
 .hero-img {
@@ -269,10 +270,10 @@ p.muted           { color: rgba(255,255,255,.65); }
 
 .hero-content {
   position: relative;
-  text-align: center;
+  text-align: left;
   color: var(--white);
-  padding: 0 1.5rem;
-  max-width: 760px;
+  padding: 0 1.5rem 0 0;
+  max-width: 680px;
 }
 
 .hero-content h1 {
